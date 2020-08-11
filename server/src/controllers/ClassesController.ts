@@ -22,8 +22,6 @@ export default class ClassesController {
 
         const timeInMinutes = convertHM(time as string)
 
-        console.log(timeInMinutes)
-
         const classes = await db('classes')
         .whereExists(function() {
             this.select('class_schedule.*')
@@ -73,6 +71,7 @@ export default class ClassesController {
     
             await trx.commit()
     
+            console.log('Inserindo...')
             return res.status(201).send()
         } catch (error) {
             await trx.rollback()
